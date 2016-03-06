@@ -1,15 +1,118 @@
+<!DOCTYPE html>
 <html>
 <body>
 
-<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+<canvas id="myCanvas" width="700" height="500" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
+var m_drawLine=0,m_x=0,m_y=0,m_ch=9999;
+
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 ctx.moveTo(0,0);
 ctx.lineTo(200,100);
 ctx.stroke();
+
+var canvas = document.getElementById("myCanvas");
+function writeMessage(canvas, message) {
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        //context.clearRect(0, 10, canvas.width, 25);
+
+        context.font = '18pt Calibri';
+        context.fillStyle = 'black';
+        context.fillText(message, 10, 25);
+
+drawScreen();
+
+      }
+      function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+//onmousedown onmouseup
+canvas.addEventListener('mousemove', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        var message = 'Plz Dont spang me!!: ' + mousePos.x + ',' + mousePos.y;
+        writeMessage(canvas, message);
+        chkMouseMove(mousePos)
+      }, false);
+canvas.addEventListener('mousedown', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        chkMouseDown(mousePos);
+      }, false);
+canvas.addEventListener('mouseup', function(evt) {
+        var mousePos = getMousePos(canvas, evt); chkMouseUp(mousePos);
+
+
+      }, false);
+var context = canvas.getContext('2d');
+function chkMouseMove(mp)
+{
+if(m_ch!=9999){
+var context = canvas.getContext('2d');
+context.moveTo(m_x,m_y);
+context.lineTo(mp.x,mp.y);
+context.stroke();
+}
+}
+function chkMouseDown(mp)
+{
+
+var x=mp.x,y=mp.y;
+m_ch=9999;
+  for(var i=0;i<5;i++){
+    if(160<x && 160+10>x && 100+i*40<y && 100+i*40+10>y){m_ch=i;m_drawLine=1;m_x=x;m_y=y;}
+    if(320<x && 320+10>x && 100+i*40<y && 100+i*40+10>y){m_ch=i+1000;m_drawLine=1;m_x=x;m_y=y;}
+
+  }
+}
+function dbox(x,y)
+{
+var context = canvas.getContext('2d');
+context.beginPath();
+      context.rect(x, y, 10, 10);
+      context.fillStyle = 'yellow';
+      context.fill();
+      context.lineWidth = 2;
+      context.strokeStyle = 'black';
+      context.stroke();
+}
+function draw10dbox()
+{
+  for(var i=0;i<5;i++){
+    dbox(160,100+i*40); dbox(320,100+i*40);
+  }
+}
+var m_quizDat=["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ",
+               "ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅍ","ㅊ","ㅎ",
+               "아","애","야","얘","어","에","여","예","오",
+               "와","왜","외","요","우","워","웨","위","유",
+               "으","의","이"];
+//ㅏㅐㅑㅒㅓㅔㅕㅖㅗ와왜외ㅛㅜ워웨위ㅠㅡ의ㅣ
+
+var m_answerDat=['giyeok','ssang giyeok','nieun','digeut','ssang digeut','rieul','mieum','bieup','ssang bieup','shiot','ssang shiot','ieung','jieut','ssang jieut','chieut','kiuek','tieut','pieup','hieut','a','ae','ya','yae','eo','e','yeo','ye','o','wa','wae','oe','yo','u','wo','we','wi','yu','eu','ui','i']; 
+function drawScreen()
+{
+ var context = canvas.getContext('2d');
+       
+        context.font = '18pt Calibri';
+        context.fillStyle = 'black';
+        
+  for(var i=0;i<5;i++){
+var nn=Math.floor(Math.random()*m_quizDat.length);
+    context.fillText(m_quizDat[nn], 120, 115+i*40);
+    context.fillText(m_answerDat[nn], 340, 115+i*40);
+  }
+draw10dbox();
+}
+
+//ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅍ ㅊ ㅎ 
+drawScreen();
 </script>
 
 </body>
