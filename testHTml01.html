@@ -4,10 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
+<img id="scream1" src="https://raw.githubusercontent.com/gpatient/untitled/master/pp_1.png" alt="The Scream" width="220" height="277" style="display: none;" >
+
+<img id="scream2" src="https://raw.githubusercontent.com/gpatient/untitled/master/pp_2.png" alt="The Scream" width="220" height="277" style="display: none;" >
+<img id="scream3" src="https://raw.githubusercontent.com/gpatient/untitled/master/pp_3.png" alt="The Scream" width="220" height="277" style="display: none;" >
+<img id="scream4" src="https://raw.githubusercontent.com/gpatient/untitled/master/pp_4.png" alt="The Scream" width="220" height="277" style="display: none;" >        
+        
 <div style="position:absolute; left:325px; top:210px">
 <img src="pp1.png"></div>
 
-<canvas id="myCanvas" width="700" height="500" style="border:1px solid #d3d3d3;">
+<canvas id="myCanvas" width="700" height="500" style="border:1px solid #d3d3d3;display: none;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
@@ -93,6 +99,18 @@ function draw10dbox()
     dbox(160,100+i*40); dbox(320,100+i*40);
   }
 }
+function drawPhoto() {
+   
+    var ctx = canvas.getContext("2d");
+var sst="scream"+(Math.floor(Math.random()*4)+1);
+    var img = document.getElementById(sst);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+var rx=Math.floor(Math.random()*canvas.width-200);
+var ry=Math.floor(Math.random()*canvas.height-200);
+
+    ctx.drawImage(img,rx,ry);
+}
+
 var m_quizDat=["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ",
                "ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ",
                "아","애","야","얘","어","에","여","예","오",
@@ -116,6 +134,7 @@ var nn=Math.floor(Math.random()*m_quizDat.length);
     context.fillText(m_answerDat[nn], 340, 115+i*40);
   }
 draw10dbox();
+drawPhoto();
 }
 
 //ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅍ ㅊ ㅎ 
